@@ -15,6 +15,10 @@ import { Route as AppIndexRouteImport } from './routes/app.index'
 import { Route as AuthRecuperarRouteImport } from './routes/auth.recuperar'
 import { Route as AuthLoginRouteImport } from './routes/auth.login'
 import { Route as AuthCadastroRouteImport } from './routes/auth.cadastro'
+import { Route as AppTarefasRouteImport } from './routes/app.tarefas'
+import { Route as AppRevisoesRouteImport } from './routes/app.revisoes'
+import { Route as AppNotificacoesRouteImport } from './routes/app.notificacoes'
+import { Route as AppMetasRouteImport } from './routes/app.metas'
 import { Route as AppCursosRouteImport } from './routes/app.cursos'
 import { Route as AppCursosIndexRouteImport } from './routes/app.cursos.index'
 import { Route as AppCursosCursoIdRouteImport } from './routes/app.cursos.$cursoId'
@@ -49,6 +53,26 @@ const AuthCadastroRoute = AuthCadastroRouteImport.update({
   path: '/auth/cadastro',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppTarefasRoute = AppTarefasRouteImport.update({
+  id: '/tarefas',
+  path: '/tarefas',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppRevisoesRoute = AppRevisoesRouteImport.update({
+  id: '/revisoes',
+  path: '/revisoes',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppNotificacoesRoute = AppNotificacoesRouteImport.update({
+  id: '/notificacoes',
+  path: '/notificacoes',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppMetasRoute = AppMetasRouteImport.update({
+  id: '/metas',
+  path: '/metas',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppCursosRoute = AppCursosRouteImport.update({
   id: '/cursos',
   path: '/cursos',
@@ -69,6 +93,10 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/app': typeof AppRouteWithChildren
   '/app/cursos': typeof AppCursosRouteWithChildren
+  '/app/metas': typeof AppMetasRoute
+  '/app/notificacoes': typeof AppNotificacoesRoute
+  '/app/revisoes': typeof AppRevisoesRoute
+  '/app/tarefas': typeof AppTarefasRoute
   '/auth/cadastro': typeof AuthCadastroRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/recuperar': typeof AuthRecuperarRoute
@@ -78,6 +106,10 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/app/metas': typeof AppMetasRoute
+  '/app/notificacoes': typeof AppNotificacoesRoute
+  '/app/revisoes': typeof AppRevisoesRoute
+  '/app/tarefas': typeof AppTarefasRoute
   '/auth/cadastro': typeof AuthCadastroRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/recuperar': typeof AuthRecuperarRoute
@@ -90,6 +122,10 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/app': typeof AppRouteWithChildren
   '/app/cursos': typeof AppCursosRouteWithChildren
+  '/app/metas': typeof AppMetasRoute
+  '/app/notificacoes': typeof AppNotificacoesRoute
+  '/app/revisoes': typeof AppRevisoesRoute
+  '/app/tarefas': typeof AppTarefasRoute
   '/auth/cadastro': typeof AuthCadastroRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/recuperar': typeof AuthRecuperarRoute
@@ -103,6 +139,10 @@ export interface FileRouteTypes {
     | '/'
     | '/app'
     | '/app/cursos'
+    | '/app/metas'
+    | '/app/notificacoes'
+    | '/app/revisoes'
+    | '/app/tarefas'
     | '/auth/cadastro'
     | '/auth/login'
     | '/auth/recuperar'
@@ -112,6 +152,10 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/app/metas'
+    | '/app/notificacoes'
+    | '/app/revisoes'
+    | '/app/tarefas'
     | '/auth/cadastro'
     | '/auth/login'
     | '/auth/recuperar'
@@ -123,6 +167,10 @@ export interface FileRouteTypes {
     | '/'
     | '/app'
     | '/app/cursos'
+    | '/app/metas'
+    | '/app/notificacoes'
+    | '/app/revisoes'
+    | '/app/tarefas'
     | '/auth/cadastro'
     | '/auth/login'
     | '/auth/recuperar'
@@ -183,6 +231,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthCadastroRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/app/tarefas': {
+      id: '/app/tarefas'
+      path: '/tarefas'
+      fullPath: '/app/tarefas'
+      preLoaderRoute: typeof AppTarefasRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/revisoes': {
+      id: '/app/revisoes'
+      path: '/revisoes'
+      fullPath: '/app/revisoes'
+      preLoaderRoute: typeof AppRevisoesRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/notificacoes': {
+      id: '/app/notificacoes'
+      path: '/notificacoes'
+      fullPath: '/app/notificacoes'
+      preLoaderRoute: typeof AppNotificacoesRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/metas': {
+      id: '/app/metas'
+      path: '/metas'
+      fullPath: '/app/metas'
+      preLoaderRoute: typeof AppMetasRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/app/cursos': {
       id: '/app/cursos'
       path: '/cursos'
@@ -223,11 +299,19 @@ const AppCursosRouteWithChildren = AppCursosRoute._addFileChildren(
 
 interface AppRouteChildren {
   AppCursosRoute: typeof AppCursosRouteWithChildren
+  AppMetasRoute: typeof AppMetasRoute
+  AppNotificacoesRoute: typeof AppNotificacoesRoute
+  AppRevisoesRoute: typeof AppRevisoesRoute
+  AppTarefasRoute: typeof AppTarefasRoute
   AppIndexRoute: typeof AppIndexRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
   AppCursosRoute: AppCursosRouteWithChildren,
+  AppMetasRoute: AppMetasRoute,
+  AppNotificacoesRoute: AppNotificacoesRoute,
+  AppRevisoesRoute: AppRevisoesRoute,
+  AppTarefasRoute: AppTarefasRoute,
   AppIndexRoute: AppIndexRoute,
 }
 
