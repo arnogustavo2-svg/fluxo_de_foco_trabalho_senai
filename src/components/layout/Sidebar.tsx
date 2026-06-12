@@ -1,8 +1,10 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { LayoutDashboard, BookOpen, ListChecks, Target, Timer, RotateCcw, BarChart3, User as UserIcon, Bell } from "lucide-react";
+import { LayoutDashboard, BookOpen, ListChecks, Target, Timer, RotateCcw, BarChart3, User as UserIcon, Bell, type LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-const items = [
+type NavItem = { to: string; label: string; icon: LucideIcon; exact?: boolean; highlight?: boolean };
+
+const items: NavItem[] = [
   { to: "/app", label: "Dashboard", icon: LayoutDashboard, exact: true },
   { to: "/app/cursos", label: "Cursos", icon: BookOpen },
   { to: "/app/tarefas", label: "Tarefas", icon: ListChecks },
@@ -12,7 +14,7 @@ const items = [
   { to: "/app/estatisticas", label: "Estatísticas", icon: BarChart3 },
   { to: "/app/notificacoes", label: "Notificações", icon: Bell },
   { to: "/app/perfil", label: "Perfil", icon: UserIcon },
-] as const;
+];
 
 export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
