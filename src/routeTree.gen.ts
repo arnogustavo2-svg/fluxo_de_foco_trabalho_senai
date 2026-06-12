@@ -15,6 +15,9 @@ import { Route as AppIndexRouteImport } from './routes/app.index'
 import { Route as AuthRecuperarRouteImport } from './routes/auth.recuperar'
 import { Route as AuthLoginRouteImport } from './routes/auth.login'
 import { Route as AuthCadastroRouteImport } from './routes/auth.cadastro'
+import { Route as AppCursosRouteImport } from './routes/app.cursos'
+import { Route as AppCursosIndexRouteImport } from './routes/app.cursos.index'
+import { Route as AppCursosCursoIdRouteImport } from './routes/app.cursos.$cursoId'
 
 const AppRoute = AppRouteImport.update({
   id: '/app',
@@ -46,14 +49,32 @@ const AuthCadastroRoute = AuthCadastroRouteImport.update({
   path: '/auth/cadastro',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppCursosRoute = AppCursosRouteImport.update({
+  id: '/cursos',
+  path: '/cursos',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppCursosIndexRoute = AppCursosIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AppCursosRoute,
+} as any)
+const AppCursosCursoIdRoute = AppCursosCursoIdRouteImport.update({
+  id: '/$cursoId',
+  path: '/$cursoId',
+  getParentRoute: () => AppCursosRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/app': typeof AppRouteWithChildren
+  '/app/cursos': typeof AppCursosRouteWithChildren
   '/auth/cadastro': typeof AuthCadastroRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/recuperar': typeof AuthRecuperarRoute
   '/app/': typeof AppIndexRoute
+  '/app/cursos/$cursoId': typeof AppCursosCursoIdRoute
+  '/app/cursos/': typeof AppCursosIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -61,35 +82,53 @@ export interface FileRoutesByTo {
   '/auth/login': typeof AuthLoginRoute
   '/auth/recuperar': typeof AuthRecuperarRoute
   '/app': typeof AppIndexRoute
+  '/app/cursos/$cursoId': typeof AppCursosCursoIdRoute
+  '/app/cursos': typeof AppCursosIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/app': typeof AppRouteWithChildren
+  '/app/cursos': typeof AppCursosRouteWithChildren
   '/auth/cadastro': typeof AuthCadastroRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/recuperar': typeof AuthRecuperarRoute
   '/app/': typeof AppIndexRoute
+  '/app/cursos/$cursoId': typeof AppCursosCursoIdRoute
+  '/app/cursos/': typeof AppCursosIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/app'
+    | '/app/cursos'
     | '/auth/cadastro'
     | '/auth/login'
     | '/auth/recuperar'
     | '/app/'
+    | '/app/cursos/$cursoId'
+    | '/app/cursos/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth/cadastro' | '/auth/login' | '/auth/recuperar' | '/app'
+  to:
+    | '/'
+    | '/auth/cadastro'
+    | '/auth/login'
+    | '/auth/recuperar'
+    | '/app'
+    | '/app/cursos/$cursoId'
+    | '/app/cursos'
   id:
     | '__root__'
     | '/'
     | '/app'
+    | '/app/cursos'
     | '/auth/cadastro'
     | '/auth/login'
     | '/auth/recuperar'
     | '/app/'
+    | '/app/cursos/$cursoId'
+    | '/app/cursos/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -144,14 +183,51 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthCadastroRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/app/cursos': {
+      id: '/app/cursos'
+      path: '/cursos'
+      fullPath: '/app/cursos'
+      preLoaderRoute: typeof AppCursosRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/cursos/': {
+      id: '/app/cursos/'
+      path: '/'
+      fullPath: '/app/cursos/'
+      preLoaderRoute: typeof AppCursosIndexRouteImport
+      parentRoute: typeof AppCursosRoute
+    }
+    '/app/cursos/$cursoId': {
+      id: '/app/cursos/$cursoId'
+      path: '/$cursoId'
+      fullPath: '/app/cursos/$cursoId'
+      preLoaderRoute: typeof AppCursosCursoIdRouteImport
+      parentRoute: typeof AppCursosRoute
+    }
   }
 }
 
+interface AppCursosRouteChildren {
+  AppCursosCursoIdRoute: typeof AppCursosCursoIdRoute
+  AppCursosIndexRoute: typeof AppCursosIndexRoute
+}
+
+const AppCursosRouteChildren: AppCursosRouteChildren = {
+  AppCursosCursoIdRoute: AppCursosCursoIdRoute,
+  AppCursosIndexRoute: AppCursosIndexRoute,
+}
+
+const AppCursosRouteWithChildren = AppCursosRoute._addFileChildren(
+  AppCursosRouteChildren,
+)
+
 interface AppRouteChildren {
+  AppCursosRoute: typeof AppCursosRouteWithChildren
   AppIndexRoute: typeof AppIndexRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
+  AppCursosRoute: AppCursosRouteWithChildren,
   AppIndexRoute: AppIndexRoute,
 }
 
