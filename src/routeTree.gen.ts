@@ -9,38 +9,229 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as AppRouteImport } from './routes/app'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AppIndexRouteImport } from './routes/app.index'
+import { Route as AuthRecuperarRouteImport } from './routes/auth.recuperar'
+import { Route as AuthLoginRouteImport } from './routes/auth.login'
+import { Route as AuthCadastroRouteImport } from './routes/auth.cadastro'
+import { Route as AppTarefasRouteImport } from './routes/app.tarefas'
+import { Route as AppRevisoesRouteImport } from './routes/app.revisoes'
+import { Route as AppPomodoroRouteImport } from './routes/app.pomodoro'
+import { Route as AppPerfilRouteImport } from './routes/app.perfil'
+import { Route as AppNotificacoesRouteImport } from './routes/app.notificacoes'
+import { Route as AppMetasRouteImport } from './routes/app.metas'
+import { Route as AppEstatisticasRouteImport } from './routes/app.estatisticas'
+import { Route as AppCursosRouteImport } from './routes/app.cursos'
+import { Route as AppCursosIndexRouteImport } from './routes/app.cursos.index'
+import { Route as AppCursosCursoIdRouteImport } from './routes/app.cursos.$cursoId'
 
+const AppRoute = AppRouteImport.update({
+  id: '/app',
+  path: '/app',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppIndexRoute = AppIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AppRoute,
+} as any)
+const AuthRecuperarRoute = AuthRecuperarRouteImport.update({
+  id: '/auth/recuperar',
+  path: '/auth/recuperar',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthLoginRoute = AuthLoginRouteImport.update({
+  id: '/auth/login',
+  path: '/auth/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthCadastroRoute = AuthCadastroRouteImport.update({
+  id: '/auth/cadastro',
+  path: '/auth/cadastro',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppTarefasRoute = AppTarefasRouteImport.update({
+  id: '/tarefas',
+  path: '/tarefas',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppRevisoesRoute = AppRevisoesRouteImport.update({
+  id: '/revisoes',
+  path: '/revisoes',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppPomodoroRoute = AppPomodoroRouteImport.update({
+  id: '/pomodoro',
+  path: '/pomodoro',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppPerfilRoute = AppPerfilRouteImport.update({
+  id: '/perfil',
+  path: '/perfil',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppNotificacoesRoute = AppNotificacoesRouteImport.update({
+  id: '/notificacoes',
+  path: '/notificacoes',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppMetasRoute = AppMetasRouteImport.update({
+  id: '/metas',
+  path: '/metas',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppEstatisticasRoute = AppEstatisticasRouteImport.update({
+  id: '/estatisticas',
+  path: '/estatisticas',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppCursosRoute = AppCursosRouteImport.update({
+  id: '/cursos',
+  path: '/cursos',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppCursosIndexRoute = AppCursosIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AppCursosRoute,
+} as any)
+const AppCursosCursoIdRoute = AppCursosCursoIdRouteImport.update({
+  id: '/$cursoId',
+  path: '/$cursoId',
+  getParentRoute: () => AppCursosRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/app': typeof AppRouteWithChildren
+  '/app/cursos': typeof AppCursosRouteWithChildren
+  '/app/estatisticas': typeof AppEstatisticasRoute
+  '/app/metas': typeof AppMetasRoute
+  '/app/notificacoes': typeof AppNotificacoesRoute
+  '/app/perfil': typeof AppPerfilRoute
+  '/app/pomodoro': typeof AppPomodoroRoute
+  '/app/revisoes': typeof AppRevisoesRoute
+  '/app/tarefas': typeof AppTarefasRoute
+  '/auth/cadastro': typeof AuthCadastroRoute
+  '/auth/login': typeof AuthLoginRoute
+  '/auth/recuperar': typeof AuthRecuperarRoute
+  '/app/': typeof AppIndexRoute
+  '/app/cursos/$cursoId': typeof AppCursosCursoIdRoute
+  '/app/cursos/': typeof AppCursosIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/app/estatisticas': typeof AppEstatisticasRoute
+  '/app/metas': typeof AppMetasRoute
+  '/app/notificacoes': typeof AppNotificacoesRoute
+  '/app/perfil': typeof AppPerfilRoute
+  '/app/pomodoro': typeof AppPomodoroRoute
+  '/app/revisoes': typeof AppRevisoesRoute
+  '/app/tarefas': typeof AppTarefasRoute
+  '/auth/cadastro': typeof AuthCadastroRoute
+  '/auth/login': typeof AuthLoginRoute
+  '/auth/recuperar': typeof AuthRecuperarRoute
+  '/app': typeof AppIndexRoute
+  '/app/cursos/$cursoId': typeof AppCursosCursoIdRoute
+  '/app/cursos': typeof AppCursosIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/app': typeof AppRouteWithChildren
+  '/app/cursos': typeof AppCursosRouteWithChildren
+  '/app/estatisticas': typeof AppEstatisticasRoute
+  '/app/metas': typeof AppMetasRoute
+  '/app/notificacoes': typeof AppNotificacoesRoute
+  '/app/perfil': typeof AppPerfilRoute
+  '/app/pomodoro': typeof AppPomodoroRoute
+  '/app/revisoes': typeof AppRevisoesRoute
+  '/app/tarefas': typeof AppTarefasRoute
+  '/auth/cadastro': typeof AuthCadastroRoute
+  '/auth/login': typeof AuthLoginRoute
+  '/auth/recuperar': typeof AuthRecuperarRoute
+  '/app/': typeof AppIndexRoute
+  '/app/cursos/$cursoId': typeof AppCursosCursoIdRoute
+  '/app/cursos/': typeof AppCursosIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/app'
+    | '/app/cursos'
+    | '/app/estatisticas'
+    | '/app/metas'
+    | '/app/notificacoes'
+    | '/app/perfil'
+    | '/app/pomodoro'
+    | '/app/revisoes'
+    | '/app/tarefas'
+    | '/auth/cadastro'
+    | '/auth/login'
+    | '/auth/recuperar'
+    | '/app/'
+    | '/app/cursos/$cursoId'
+    | '/app/cursos/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/app/estatisticas'
+    | '/app/metas'
+    | '/app/notificacoes'
+    | '/app/perfil'
+    | '/app/pomodoro'
+    | '/app/revisoes'
+    | '/app/tarefas'
+    | '/auth/cadastro'
+    | '/auth/login'
+    | '/auth/recuperar'
+    | '/app'
+    | '/app/cursos/$cursoId'
+    | '/app/cursos'
+  id:
+    | '__root__'
+    | '/'
+    | '/app'
+    | '/app/cursos'
+    | '/app/estatisticas'
+    | '/app/metas'
+    | '/app/notificacoes'
+    | '/app/perfil'
+    | '/app/pomodoro'
+    | '/app/revisoes'
+    | '/app/tarefas'
+    | '/auth/cadastro'
+    | '/auth/login'
+    | '/auth/recuperar'
+    | '/app/'
+    | '/app/cursos/$cursoId'
+    | '/app/cursos/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AppRoute: typeof AppRouteWithChildren
+  AuthCadastroRoute: typeof AuthCadastroRoute
+  AuthLoginRoute: typeof AuthLoginRoute
+  AuthRecuperarRoute: typeof AuthRecuperarRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/app': {
+      id: '/app'
+      path: '/app'
+      fullPath: '/app'
+      preLoaderRoute: typeof AppRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,22 +239,154 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/app/': {
+      id: '/app/'
+      path: '/'
+      fullPath: '/app/'
+      preLoaderRoute: typeof AppIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/auth/recuperar': {
+      id: '/auth/recuperar'
+      path: '/auth/recuperar'
+      fullPath: '/auth/recuperar'
+      preLoaderRoute: typeof AuthRecuperarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth/login': {
+      id: '/auth/login'
+      path: '/auth/login'
+      fullPath: '/auth/login'
+      preLoaderRoute: typeof AuthLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth/cadastro': {
+      id: '/auth/cadastro'
+      path: '/auth/cadastro'
+      fullPath: '/auth/cadastro'
+      preLoaderRoute: typeof AuthCadastroRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/tarefas': {
+      id: '/app/tarefas'
+      path: '/tarefas'
+      fullPath: '/app/tarefas'
+      preLoaderRoute: typeof AppTarefasRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/revisoes': {
+      id: '/app/revisoes'
+      path: '/revisoes'
+      fullPath: '/app/revisoes'
+      preLoaderRoute: typeof AppRevisoesRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/pomodoro': {
+      id: '/app/pomodoro'
+      path: '/pomodoro'
+      fullPath: '/app/pomodoro'
+      preLoaderRoute: typeof AppPomodoroRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/perfil': {
+      id: '/app/perfil'
+      path: '/perfil'
+      fullPath: '/app/perfil'
+      preLoaderRoute: typeof AppPerfilRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/notificacoes': {
+      id: '/app/notificacoes'
+      path: '/notificacoes'
+      fullPath: '/app/notificacoes'
+      preLoaderRoute: typeof AppNotificacoesRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/metas': {
+      id: '/app/metas'
+      path: '/metas'
+      fullPath: '/app/metas'
+      preLoaderRoute: typeof AppMetasRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/estatisticas': {
+      id: '/app/estatisticas'
+      path: '/estatisticas'
+      fullPath: '/app/estatisticas'
+      preLoaderRoute: typeof AppEstatisticasRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/cursos': {
+      id: '/app/cursos'
+      path: '/cursos'
+      fullPath: '/app/cursos'
+      preLoaderRoute: typeof AppCursosRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/cursos/': {
+      id: '/app/cursos/'
+      path: '/'
+      fullPath: '/app/cursos/'
+      preLoaderRoute: typeof AppCursosIndexRouteImport
+      parentRoute: typeof AppCursosRoute
+    }
+    '/app/cursos/$cursoId': {
+      id: '/app/cursos/$cursoId'
+      path: '/$cursoId'
+      fullPath: '/app/cursos/$cursoId'
+      preLoaderRoute: typeof AppCursosCursoIdRouteImport
+      parentRoute: typeof AppCursosRoute
+    }
   }
 }
 
+interface AppCursosRouteChildren {
+  AppCursosCursoIdRoute: typeof AppCursosCursoIdRoute
+  AppCursosIndexRoute: typeof AppCursosIndexRoute
+}
+
+const AppCursosRouteChildren: AppCursosRouteChildren = {
+  AppCursosCursoIdRoute: AppCursosCursoIdRoute,
+  AppCursosIndexRoute: AppCursosIndexRoute,
+}
+
+const AppCursosRouteWithChildren = AppCursosRoute._addFileChildren(
+  AppCursosRouteChildren,
+)
+
+interface AppRouteChildren {
+  AppCursosRoute: typeof AppCursosRouteWithChildren
+  AppEstatisticasRoute: typeof AppEstatisticasRoute
+  AppMetasRoute: typeof AppMetasRoute
+  AppNotificacoesRoute: typeof AppNotificacoesRoute
+  AppPerfilRoute: typeof AppPerfilRoute
+  AppPomodoroRoute: typeof AppPomodoroRoute
+  AppRevisoesRoute: typeof AppRevisoesRoute
+  AppTarefasRoute: typeof AppTarefasRoute
+  AppIndexRoute: typeof AppIndexRoute
+}
+
+const AppRouteChildren: AppRouteChildren = {
+  AppCursosRoute: AppCursosRouteWithChildren,
+  AppEstatisticasRoute: AppEstatisticasRoute,
+  AppMetasRoute: AppMetasRoute,
+  AppNotificacoesRoute: AppNotificacoesRoute,
+  AppPerfilRoute: AppPerfilRoute,
+  AppPomodoroRoute: AppPomodoroRoute,
+  AppRevisoesRoute: AppRevisoesRoute,
+  AppTarefasRoute: AppTarefasRoute,
+  AppIndexRoute: AppIndexRoute,
+}
+
+const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AppRoute: AppRouteWithChildren,
+  AuthCadastroRoute: AuthCadastroRoute,
+  AuthLoginRoute: AuthLoginRoute,
+  AuthRecuperarRoute: AuthRecuperarRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
