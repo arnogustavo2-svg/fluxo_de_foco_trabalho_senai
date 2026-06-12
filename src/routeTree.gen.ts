@@ -17,8 +17,11 @@ import { Route as AuthLoginRouteImport } from './routes/auth.login'
 import { Route as AuthCadastroRouteImport } from './routes/auth.cadastro'
 import { Route as AppTarefasRouteImport } from './routes/app.tarefas'
 import { Route as AppRevisoesRouteImport } from './routes/app.revisoes'
+import { Route as AppPomodoroRouteImport } from './routes/app.pomodoro'
+import { Route as AppPerfilRouteImport } from './routes/app.perfil'
 import { Route as AppNotificacoesRouteImport } from './routes/app.notificacoes'
 import { Route as AppMetasRouteImport } from './routes/app.metas'
+import { Route as AppEstatisticasRouteImport } from './routes/app.estatisticas'
 import { Route as AppCursosRouteImport } from './routes/app.cursos'
 import { Route as AppCursosIndexRouteImport } from './routes/app.cursos.index'
 import { Route as AppCursosCursoIdRouteImport } from './routes/app.cursos.$cursoId'
@@ -63,6 +66,16 @@ const AppRevisoesRoute = AppRevisoesRouteImport.update({
   path: '/revisoes',
   getParentRoute: () => AppRoute,
 } as any)
+const AppPomodoroRoute = AppPomodoroRouteImport.update({
+  id: '/pomodoro',
+  path: '/pomodoro',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppPerfilRoute = AppPerfilRouteImport.update({
+  id: '/perfil',
+  path: '/perfil',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppNotificacoesRoute = AppNotificacoesRouteImport.update({
   id: '/notificacoes',
   path: '/notificacoes',
@@ -71,6 +84,11 @@ const AppNotificacoesRoute = AppNotificacoesRouteImport.update({
 const AppMetasRoute = AppMetasRouteImport.update({
   id: '/metas',
   path: '/metas',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppEstatisticasRoute = AppEstatisticasRouteImport.update({
+  id: '/estatisticas',
+  path: '/estatisticas',
   getParentRoute: () => AppRoute,
 } as any)
 const AppCursosRoute = AppCursosRouteImport.update({
@@ -93,8 +111,11 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/app': typeof AppRouteWithChildren
   '/app/cursos': typeof AppCursosRouteWithChildren
+  '/app/estatisticas': typeof AppEstatisticasRoute
   '/app/metas': typeof AppMetasRoute
   '/app/notificacoes': typeof AppNotificacoesRoute
+  '/app/perfil': typeof AppPerfilRoute
+  '/app/pomodoro': typeof AppPomodoroRoute
   '/app/revisoes': typeof AppRevisoesRoute
   '/app/tarefas': typeof AppTarefasRoute
   '/auth/cadastro': typeof AuthCadastroRoute
@@ -106,8 +127,11 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/app/estatisticas': typeof AppEstatisticasRoute
   '/app/metas': typeof AppMetasRoute
   '/app/notificacoes': typeof AppNotificacoesRoute
+  '/app/perfil': typeof AppPerfilRoute
+  '/app/pomodoro': typeof AppPomodoroRoute
   '/app/revisoes': typeof AppRevisoesRoute
   '/app/tarefas': typeof AppTarefasRoute
   '/auth/cadastro': typeof AuthCadastroRoute
@@ -122,8 +146,11 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/app': typeof AppRouteWithChildren
   '/app/cursos': typeof AppCursosRouteWithChildren
+  '/app/estatisticas': typeof AppEstatisticasRoute
   '/app/metas': typeof AppMetasRoute
   '/app/notificacoes': typeof AppNotificacoesRoute
+  '/app/perfil': typeof AppPerfilRoute
+  '/app/pomodoro': typeof AppPomodoroRoute
   '/app/revisoes': typeof AppRevisoesRoute
   '/app/tarefas': typeof AppTarefasRoute
   '/auth/cadastro': typeof AuthCadastroRoute
@@ -139,8 +166,11 @@ export interface FileRouteTypes {
     | '/'
     | '/app'
     | '/app/cursos'
+    | '/app/estatisticas'
     | '/app/metas'
     | '/app/notificacoes'
+    | '/app/perfil'
+    | '/app/pomodoro'
     | '/app/revisoes'
     | '/app/tarefas'
     | '/auth/cadastro'
@@ -152,8 +182,11 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/app/estatisticas'
     | '/app/metas'
     | '/app/notificacoes'
+    | '/app/perfil'
+    | '/app/pomodoro'
     | '/app/revisoes'
     | '/app/tarefas'
     | '/auth/cadastro'
@@ -167,8 +200,11 @@ export interface FileRouteTypes {
     | '/'
     | '/app'
     | '/app/cursos'
+    | '/app/estatisticas'
     | '/app/metas'
     | '/app/notificacoes'
+    | '/app/perfil'
+    | '/app/pomodoro'
     | '/app/revisoes'
     | '/app/tarefas'
     | '/auth/cadastro'
@@ -245,6 +281,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppRevisoesRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/pomodoro': {
+      id: '/app/pomodoro'
+      path: '/pomodoro'
+      fullPath: '/app/pomodoro'
+      preLoaderRoute: typeof AppPomodoroRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/perfil': {
+      id: '/app/perfil'
+      path: '/perfil'
+      fullPath: '/app/perfil'
+      preLoaderRoute: typeof AppPerfilRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/app/notificacoes': {
       id: '/app/notificacoes'
       path: '/notificacoes'
@@ -257,6 +307,13 @@ declare module '@tanstack/react-router' {
       path: '/metas'
       fullPath: '/app/metas'
       preLoaderRoute: typeof AppMetasRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/estatisticas': {
+      id: '/app/estatisticas'
+      path: '/estatisticas'
+      fullPath: '/app/estatisticas'
+      preLoaderRoute: typeof AppEstatisticasRouteImport
       parentRoute: typeof AppRoute
     }
     '/app/cursos': {
@@ -299,8 +356,11 @@ const AppCursosRouteWithChildren = AppCursosRoute._addFileChildren(
 
 interface AppRouteChildren {
   AppCursosRoute: typeof AppCursosRouteWithChildren
+  AppEstatisticasRoute: typeof AppEstatisticasRoute
   AppMetasRoute: typeof AppMetasRoute
   AppNotificacoesRoute: typeof AppNotificacoesRoute
+  AppPerfilRoute: typeof AppPerfilRoute
+  AppPomodoroRoute: typeof AppPomodoroRoute
   AppRevisoesRoute: typeof AppRevisoesRoute
   AppTarefasRoute: typeof AppTarefasRoute
   AppIndexRoute: typeof AppIndexRoute
@@ -308,8 +368,11 @@ interface AppRouteChildren {
 
 const AppRouteChildren: AppRouteChildren = {
   AppCursosRoute: AppCursosRouteWithChildren,
+  AppEstatisticasRoute: AppEstatisticasRoute,
   AppMetasRoute: AppMetasRoute,
   AppNotificacoesRoute: AppNotificacoesRoute,
+  AppPerfilRoute: AppPerfilRoute,
+  AppPomodoroRoute: AppPomodoroRoute,
   AppRevisoesRoute: AppRevisoesRoute,
   AppTarefasRoute: AppTarefasRoute,
   AppIndexRoute: AppIndexRoute,
