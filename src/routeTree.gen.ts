@@ -10,33 +10,63 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthRecuperarRouteImport } from './routes/auth.recuperar'
+import { Route as AuthLoginRouteImport } from './routes/auth.login'
+import { Route as AuthCadastroRouteImport } from './routes/auth.cadastro'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthRecuperarRoute = AuthRecuperarRouteImport.update({
+  id: '/auth/recuperar',
+  path: '/auth/recuperar',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthLoginRoute = AuthLoginRouteImport.update({
+  id: '/auth/login',
+  path: '/auth/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthCadastroRoute = AuthCadastroRouteImport.update({
+  id: '/auth/cadastro',
+  path: '/auth/cadastro',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth/cadastro': typeof AuthCadastroRoute
+  '/auth/login': typeof AuthLoginRoute
+  '/auth/recuperar': typeof AuthRecuperarRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth/cadastro': typeof AuthCadastroRoute
+  '/auth/login': typeof AuthLoginRoute
+  '/auth/recuperar': typeof AuthRecuperarRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/auth/cadastro': typeof AuthCadastroRoute
+  '/auth/login': typeof AuthLoginRoute
+  '/auth/recuperar': typeof AuthRecuperarRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/auth/cadastro' | '/auth/login' | '/auth/recuperar'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/auth/cadastro' | '/auth/login' | '/auth/recuperar'
+  id: '__root__' | '/' | '/auth/cadastro' | '/auth/login' | '/auth/recuperar'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthCadastroRoute: typeof AuthCadastroRoute
+  AuthLoginRoute: typeof AuthLoginRoute
+  AuthRecuperarRoute: typeof AuthRecuperarRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,12 +78,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/auth/recuperar': {
+      id: '/auth/recuperar'
+      path: '/auth/recuperar'
+      fullPath: '/auth/recuperar'
+      preLoaderRoute: typeof AuthRecuperarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth/login': {
+      id: '/auth/login'
+      path: '/auth/login'
+      fullPath: '/auth/login'
+      preLoaderRoute: typeof AuthLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth/cadastro': {
+      id: '/auth/cadastro'
+      path: '/auth/cadastro'
+      fullPath: '/auth/cadastro'
+      preLoaderRoute: typeof AuthCadastroRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthCadastroRoute: AuthCadastroRoute,
+  AuthLoginRoute: AuthLoginRoute,
+  AuthRecuperarRoute: AuthRecuperarRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
