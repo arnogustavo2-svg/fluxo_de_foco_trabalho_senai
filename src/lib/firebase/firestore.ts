@@ -17,7 +17,7 @@ type Collections = {
 type CollectionName = keyof Collections;
 
 function storageKey(name: CollectionName) {
-  return `focused.db.${name}`;
+  return `focused.db.v2.${name}`;
 }
 
 function load<T>(name: CollectionName, seed: T[]): T[] {

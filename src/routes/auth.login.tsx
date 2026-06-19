@@ -15,8 +15,8 @@ export const Route = createFileRoute("/auth/login")({
 function LoginPage() {
   const { signIn } = useAuth();
   const router = useRouter();
-  const [email, setEmail] = useState("ana@focused.app");
-  const [password, setPassword] = useState("demo1234");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
   async function onSubmit(e: React.FormEvent) {
@@ -51,7 +51,6 @@ function LoginPage() {
         <Button type="submit" className="w-full" size="lg" disabled={loading}>
           {loading ? "Entrando…" : "Entrar"}
         </Button>
-        <p className="text-center text-xs text-muted-foreground">Demo: qualquer email/senha funciona.</p>
       </form>
     </AuthShell>
   );
