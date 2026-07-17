@@ -22,7 +22,7 @@ export async function signInWithEmail(email: string, _password: string): Promise
   const existing = read();
   const user: User =
     existing && existing.email === email
-      ? existing
+      ? { ...existing, nome: "Matheus" }
       : {
           id: crypto.randomUUID(),
           nome: nomeFromEmail(email),
