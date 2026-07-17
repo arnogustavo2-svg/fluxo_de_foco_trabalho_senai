@@ -25,7 +25,7 @@ function LoginPage() {
     setLoading(true);
     try {
       await signIn(email, password);
-      toast.success("Bem-vinda de volta!");
+      toast.success("Bem-vindo de volta!");
       router.navigate({ to: "/app" });
     } finally { setLoading(false); }
   }
