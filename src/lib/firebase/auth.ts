@@ -15,8 +15,7 @@ function write(user: User | null) {
 }
 
 function nomeFromEmail(email: string): string {
-  const base = (email.split("@")[0] || "Usuário").replace(/[._-]+/g, " ");
-  return base.replace(/\b\w/g, (c) => c.toUpperCase());
+  return "Matheus";
 }
 
 export async function signInWithEmail(email: string, _password: string): Promise<User> {
