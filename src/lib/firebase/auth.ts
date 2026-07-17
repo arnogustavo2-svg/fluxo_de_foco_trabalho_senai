@@ -1,11 +1,18 @@
 import type { User } from "@/types";
 
-const KEY = "focused.session.user";
+const KEY = "focused.session.user.v2";
 
 function read(): User | null {
   if (typeof window === "undefined") return null;
   const raw = window.localStorage.getItem(KEY);
-  return raw ? (JSON.parse(raw) as User) : null;
+  if (!raw) return null;
+  const u = JSON.parse(raw) as User;
+  // Garante que o nome de exibição seja sempre "Matheus"
+  if (u.nome !== "Matheus") {
+    u.nome = "Matheus";
+    window.localStorage.setItem(KEY, JSON.stringify(u));
+  }
+  return u;
 }
 
 function write(user: User | null) {
